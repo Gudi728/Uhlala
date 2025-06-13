@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sandwiches</title>
+  <link rel="stylesheet" href="estilos.css">
+</head>
+<body>
+  <header class="navbar">
+    <img src="logo.png" alt="Logo" class="logo" onclick="window.location.href='index.html'">
+  </header>
+
+  <main class="seccion-productos">
+    <h2>Sandwiches</h2>
+    <div class="producto">
+      <img src="sandwich.jpg" alt="Sandwich de Lomito">
+      <h3>Sandwich de Lomito</h3>
+      <p>$2700</p>
+      <button onclick="toggleIngredientes(this)">Ingredientes</button>
+      <p class="ingredientes oculto">Lomo, lechuga, tomate, mayonesa, pan</p>
+      <input type="number" min="1" value="1">
+      <button onclick="agregarAlCarrito('Sandwich de Lomito', 2700, this)">Agregar al carrito</button>
+    </div>
+
+    <button class="ver-carrito" onclick="window.location.href='carrito.html'">Ver pedido</button>
+  </main>
+
+  <script>
+    function toggleIngredientes(btn) {
+      const parrafo = btn.nextElementSibling;
+      parrafo.classList.toggle('oculto');
+    }
+
+    function agregarAlCarrito(nombre, precio, btn) {
+      const cantidad = parseInt(btn.previousElementSibling.value);
+      const carrito = JSON.parse(localStorage.getItem('carrito') || '[]');
+      const existente = carrito.find(p => p.nombre === nombre);
+      if (existente) {
+        existente.cantidad += cantidad;
+      } else {
+        carrito.push({ nombre, precio, cantidad });
+      }
+      localStorage.setItem('carrito', JSON.stringify(carrito));
+      document.querySelector('.ver-carrito').style.display = 'block';
+    }
+  </script>
+</body>
+</html>

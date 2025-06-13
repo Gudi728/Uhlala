@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Magnus - Pedidos</title>
+  <link rel="stylesheet" href="estilos.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+  <header class="navbar">
+    <img src="imagenes/logo.jpg" alt="Logo" class="logo" onclick="irInicio()">
+    <nav>
+      <button onclick="mostrarVentana('horario')">Horarios</button>
+      <button onclick="mostrarVentana('ubicacion')">Ubicación</button>
+    </nav>
+  </header>
+
+  <main class="menu-principal">
+    <section class="categorias">
+      <a href="hamburguesas.html">Hamburguesas</a>
+      <a href="sandwiches.html">Sandwich</a>
+      <a href="milanesas.html">Milanesas</a>
+      <a href="papas.html">Papas Fritas</a>
+      <a href="pizzas.html">Pizzas</a>
+      <a href="bebidas.html">Bebidas</a>
+       <a href="carrito.html">Carrito</a>
+    </section>
+  </main>
+
+  <div id="modal-horario" class="modal oculto">
+    <div class="modal-contenido">
+      <p>Todos los días de 19:30 a 00:00</p>
+      <button onclick="cerrarVentana('horario')">Cerrar</button>
+    </div>
+  </div>
+
+  <div id="modal-ubicacion" class="modal oculto">
+    <div class="modal-contenido">
+      <p>Roque Saenz Peña 220</p>
+      <button onclick="cerrarVentana('ubicacion')">Cerrar</button>
+    </div>
+  </div>
+
+  <script>
+    function irInicio() {
+      window.location.href = 'index.html';
+    }
+
+    function mostrarVentana(tipo) {
+      document.getElementById('modal-' + tipo).classList.remove('oculto');
+    }
+
+    function cerrarVentana(tipo) {
+      document.getElementById('modal-' + tipo).classList.add('oculto');
+    }
+  </script>
+</body>
+</html>
