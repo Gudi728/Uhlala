@@ -13,44 +13,49 @@
 
   <main class="seccion-productos">
     <h2>Hamburguesas</h2>
+
     <div class="producto">
       <img src="imagenes/Hamburguesa tradicional.jpg" alt="Hamburguesa Tradicional">
       <h3>Tradicional</h3>
       <p>$7500</p>
       <button onclick="toggleIngredientes(this)">Ingredientes</button>
-      <p class="ingredientes oculto">Medallon de carne, lechuga, tomate, queso, mayonesa, huevo, pan</p>
+      <p class="ingredientes oculto">Medallón de carne, lechuga, tomate, queso, mayonesa, huevo, pan</p>
       <input type="number" min="1" value="1">
       <button onclick="agregarAlCarrito('Hamburguesa Tradicional', 7500, this)">Agregar al carrito</button>
     </div>
+
     <div class="producto">
       <img src="imagenes/Hamburguesa tradicional doble.jpg" alt="Hamburguesa Tradicional Doble">
       <h3>Tradicional Doble</h3>
       <p>$9000</p>
       <button onclick="toggleIngredientes(this)">Ingredientes</button>
-      <p class="ingredientes oculto">Doble medallon de carne, lechuga, tomate, doble queso, mayonesa, huevo, pan</p>
+      <p class="ingredientes oculto">Doble medallón de carne, lechuga, tomate, doble queso, mayonesa, huevo, pan</p>
       <input type="number" min="1" value="1">
-      <button onclick="agregarAlCarrito('Hamburguesa Tradicional doble', 9000, this)">Agregar al carrito</button>
+      <button onclick="agregarAlCarrito('Hamburguesa Tradicional Doble', 9000, this)">Agregar al carrito</button>
     </div>
+
     <div class="producto">
       <img src="imagenes/Hamburguesa cuarto de libra.jpg" alt="Hamburguesa Cuarto de libra">
       <h3>Cuarto de libra</h3>
       <p>$7500</p>
       <button onclick="toggleIngredientes(this)">Ingredientes</button>
-      <p class="ingredientes oculto">Medallon de carne, staker, cheddar, panceta, pan</p>
+      <p class="ingredientes oculto">Medallón de carne, staker, cheddar, panceta, pan</p>
       <input type="number" min="1" value="1">
       <button onclick="agregarAlCarrito('Cuarto de libra', 7500, this)">Agregar al carrito</button>
     </div>
+
     <div class="producto">
       <img src="imagenes/Doble cuarto de libra.jpg" alt="Doble Cuarto de libra">
       <h3>Doble cuarto de libra</h3>
       <p>$9000</p>
       <button onclick="toggleIngredientes(this)">Ingredientes</button>
-      <p class="ingredientes oculto">Doble medallon de carne, staker, doble cheddar, doble panceta, pan</p>
+      <p class="ingredientes oculto">Doble medallón de carne, staker, doble cheddar, doble panceta, pan</p>
       <input type="number" min="1" value="1">
       <button onclick="agregarAlCarrito('Doble cuarto de libra', 9000, this)">Agregar al carrito</button>
     </div>
 
-    <button class="ver-carrito" onclick="window.location.href='carrito.html'">Ver pedido</button>
+    <!-- Botón que se moverá dinámicamente -->
+    <button id="verCarritoBtn" class="ver-carrito" onclick="window.location.href='carrito.html'" style="display: none;">Ver pedido</button>
   </main>
 
   <script>
@@ -61,15 +66,25 @@
 
     function agregarAlCarrito(nombre, precio, btn) {
       const cantidad = parseInt(btn.previousElementSibling.value);
+      if (isNaN(cantidad) || cantidad <= 0) return;
+
       const carrito = JSON.parse(localStorage.getItem('carrito') || '[]');
       const existente = carrito.find(p => p.nombre === nombre);
+
       if (existente) {
         existente.cantidad += cantidad;
       } else {
         carrito.push({ nombre, precio, cantidad });
       }
+
       localStorage.setItem('carrito', JSON.stringify(carrito));
-      document.querySelector('.ver-carrito').style.display = 'block';
+
+      // Mostrar y mover el botón "Ver pedido" justo después del producto actual
+      const verBtn = document.getElementById('verCarritoBtn');
+      verBtn.style.display = 'block';
+
+      const productoDiv = btn.closest('.producto');
+      productoDiv.parentNode.insertBefore(verBtn, productoDiv.nextSibling);
     }
   </script>
 </body>
