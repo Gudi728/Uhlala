@@ -155,8 +155,13 @@
 
       mensaje += `*Pago:* ${pago}`;
 
-      const url = `https://wa.me/3533498100?text=${encodeURIComponent(mensaje)}`;
-      window.open(url, '_blank');
+     const url = `https://wa.me/3533498100?text=${encodeURIComponent(mensaje)}`;
+window.open(url, '_blank');
+
+// Vaciar carrito después de enviar el pedido
+localStorage.removeItem('carrito');
+carrito = [];
+renderizarCarrito();
     }
 
     actualizarFormularioEntrega();
