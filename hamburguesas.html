@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hamburguesas</title>
+  <link rel="stylesheet" href="estilos.css">
+</head>
+<body>
+  <header class="navbar">
+    <img src="imagenes/logo.jpg" alt="Logo" class="logo" onclick="window.location.href='index.html'">
+  </header>
+
+  <main class="seccion-productos">
+    <h2>Hamburguesas</h2>
+
+    <div class="producto">
+      <img src="imagenes/Hamburguesa tradicional.jpg" alt="Hamburguesa Tradicional">
+      <h3>Tradicional</h3>
+      <p>$7500</p>
+      <button onclick="toggleIngredientes(this)">Ingredientes</button>
+      <p class="ingredientes oculto">Medallón de carne, lechuga, tomate, queso, mayonesa, huevo, pan</p>
+      <input type="number" min="1" value="1">
+      <button onclick="agregarAlCarrito('Hamburguesa Tradicional', 7500, this)">Agregar al carrito</button>
+    </div>
+
+    <div class="producto">
+      <img src="imagenes/Hamburguesa tradicional doble.jpg" alt="Hamburguesa Tradicional Doble">
+      <h3>Tradicional Doble</h3>
+      <p>$9000</p>
+      <button onclick="toggleIngredientes(this)">Ingredientes</button>
+      <p class="ingredientes oculto">Doble medallón de carne, lechuga, tomate, doble queso, mayonesa, huevo, pan</p>
+      <input type="number" min="1" value="1">
+      <button onclick="agregarAlCarrito('Hamburguesa Tradicional Doble', 9000, this)">Agregar al carrito</button>
+    </div>
+
+    <div class="producto">
+      <img src="imagenes/Hamburguesa cuarto de libra.jpg" alt="Hamburguesa Cuarto de libra">
+      <h3>Cuarto de libra</h3>
+      <p>$7500</p>
+      <button onclick="toggleIngredientes(this)">Ingredientes</button>
+      <p class="ingredientes oculto">Medallón de carne, staker, cheddar, panceta, pan</p>
+      <input type="number" min="1" value="1">
+      <button onclick="agregarAlCarrito('Cuarto de libra', 7500, this)">Agregar al carrito</button>
+    </div>
+
+    <div class="producto">
+      <img src="imagenes/Doble cuarto de libra.jpg" alt="Doble Cuarto de libra">
+      <h3>Doble cuarto de libra</h3>
+      <p>$9000</p>
+      <button onclick="toggleIngredientes(this)">Ingredientes</button>
+      <p class="ingredientes oculto">Doble medallón de carne, staker, doble cheddar, doble panceta, pan</p>
+      <input type="number" min="1" value="1">
+      <button onclick="agregarAlCarrito('Doble cuarto de libra', 9000, this)">Agregar al carrito</button>
+    </div>
+    <div class="producto">
+      <img src="imagenes/cangre.jpg" alt="Cangreburguer">
+      <h3>Cangreburguer</h3>
+      <p>$7500</p>
+      <button onclick="toggleIngredientes(this)">Ingredientes</button>
+      <p class="ingredientes oculto">Medallón de carne, mayonesa, ketchup, pepinillo, lechuga, tomate, queso, cebolla morada y pan</p>
+      <input type="number" min="1" value="1">
+      <button onclick="agregarAlCarrito('Cangreburguer', 7500, this)">Agregar al carrito</button>
+    </div>
+    <div class="producto">
+      <img src="" alt="Doble Cangreburguer">
+      <h3>Doble Cangreburguer</h3>
+      <p>$9000</p>
+      <button onclick="toggleIngredientes(this)">Ingredientes</button>
+      <p class="ingredientes oculto">Doble medallón de carne, mayonesa, ketchup, pepinillo, lechuga, tomate, queso, cebolla morada y pan</p>
+      <input type="number" min="1" value="1">
+      <button onclick="agregarAlCarrito('Cangreburguer', 9000, this)">Agregar al carrito</button>
+    </div>
+    <div class="producto">
+      <img src="" alt="Tijuana">
+      <h3>Tijuana</h3>
+      <p>$7500</p>
+      <button onclick="toggleIngredientes(this)">Ingredientes</button>
+      <p class="ingredientes oculto">Medallón de carne, staker, pepinillo, queso, jalapeño, pan</p>
+      <input type="number" min="1" value="1">
+      <button onclick="agregarAlCarrito('Tijuana', 7500, this)">Agregar al carrito</button>
+    </div>
+    <div class="producto">
+      <img src="" alt="Doble Tijuana">
+      <h3>Doble Tijuana</h3>
+      <p>$9000</p>
+      <button onclick="toggleIngredientes(this)">Ingredientes</button>
+      <p class="ingredientes oculto">Doble medallón de carne, staker, pepinillo, queso, jalapeño, pan</p>
+      <input type="number" min="1" value="1">
+      <button onclick="agregarAlCarrito('Tijuana', 9000, this)">Agregar al carrito</button>
+    </div>
+    <div class="producto">
+      <img src="" alt="Criolla">
+      <h3>Criolla</h3>
+      <p>$7500</p>
+      <button onclick="toggleIngredientes(this)">Ingredientes</button>
+      <p class="ingredientes oculto">Medallón de carne, mayonesa, lechuga, tomate, queso, queso sardo, pan</p>
+      <input type="number" min="1" value="1">
+      <button onclick="agregarAlCarrito('Criolla', 7500, this)">Agregar al carrito</button>
+    </div>
+    <div class="producto">
+      <img src="" alt="Doble Criolla">
+      <h3>Doble Criolla</h3>
+      <p>$9000</p>
+      <button onclick="toggleIngredientes(this)">Ingredientes</button>
+      <p class="ingredientes oculto">Doble medallón de carne, mayonesa, lechuga, tomate, queso, queso sardo, pan</p>
+      <input type="number" min="1" value="1">
+      <button onclick="agregarAlCarrito('Doble Criolla', 9000, this)">Agregar al carrito</button>
+    </div>
+    <div class="producto">
+      <img src="" alt="Veggie">
+      <h3>Veggie</h3>
+      <p>$7500</p>
+      <button onclick="toggleIngredientes(this)">Ingredientes</button>
+      <p class="ingredientes oculto">Pan, pepinillo, tomate, queso sardo, cebolla morada,</p>
+      <input type="number" min="1" value="1">
+      <button onclick="agregarAlCarrito('Veggie', 7500, this)">Agregar al carrito</button>
+    </div>
+
+
+    <!-- Botón que se moverá dinámicamente -->
+    <button id="verCarritoBtn" class="ver-carrito" onclick="window.location.href='carrito.html'" style="display: none;">Ver pedido</button>
+  </main>
+
+  <script>
+    function toggleIngredientes(btn) {
+      const parrafo = btn.nextElementSibling;
+      parrafo.classList.toggle('oculto');
+    }
+
+    function agregarAlCarrito(nombre, precio, btn) {
+      const cantidad = parseInt(btn.previousElementSibling.value);
+      if (isNaN(cantidad) || cantidad <= 0) return;
+
+      const carrito = JSON.parse(localStorage.getItem('carrito') || '[]');
+      const existente = carrito.find(p => p.nombre === nombre);
+
+      if (existente) {
+        existente.cantidad += cantidad;
+      } else {
+        carrito.push({ nombre, precio, cantidad });
+      }
+
+      localStorage.setItem('carrito', JSON.stringify(carrito));
+
+      // Mostrar y mover el botón "Ver pedido" justo después del producto actual
+      const verBtn = document.getElementById('verCarritoBtn');
+      verBtn.style.display = 'block';
+
+      const productoDiv = btn.closest('.producto');
+      productoDiv.parentNode.insertBefore(verBtn, productoDiv.nextSibling);
+    }
+  </script>
+
+  <footer class="footer">
+  <div class="footer-content">
+    <div class="footer-text">
+      <p>Este sitio está creado por: <strong>GudiWeb</strong></p>
+      <p>Teléfono: 3533439355</p>
+      <p>Email: matiasgo728@gmail.com</p>
+    </div>
+    <div class="footer-logo">
+      <img src="imagenes/logo gudi.png" alt="Logo GudiWeb">
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Magnus - Pedidos</title>
+  <link rel="stylesheet" href="estilos.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    .modal {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background-color: #1a1a1a;
+      color: white;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.8);
+      z-index: 1000;
+    }
+
+    .modal-contenido {
+      text-align: center;
+    }
+
+    .modal button {
+      margin-top: 15px;
+      background-color: #ff5722;
+      color: white;
+      border: none;
+      padding: 10px 15px;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    .modal button:hover {
+      background-color: #e64a19;
+    }
+
+    .oculto {
+      display: none;
+    }
+
+    /* Fondo semitransparente opcional detrás del modal */
+    .modal::before {
+      content: "";
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.6);
+      z-index: -1;
+      border-radius: 12px;
+    }
+  </style>
+</head>
+<body>
+  <header class="navbar">
+    <img src="imagenes/logo.jpg" alt="Logo" class="logo" onclick="irInicio()">
+    <nav>
+      <button onclick="mostrarVentana('horario')">Horarios</button>
+      <button onclick="mostrarVentana('ubicacion')">Ubicación</button>
+    </nav>
+  </header>
+
+  <main class="menu-principal">
+    <section class="categorias">
+      <a href="hamburguesas.html">Hamburguesas</a>
+      <a href="sandwiches.html">Sandwich</a>
+      <a href="milanesas.html">Milanesas</a>
+      <a href="papas.html">Papas Fritas</a>
+      <a href="pizzas.html">Pizzas</a>
+      <a href="bebidas.html">Bebidas</a>
+      <a href="carrito.html">Carrito</a>
+    </section>
+  </main>
+
+  <!-- Modales -->
+  <div id="modal-horario" class="modal oculto">
+    <div class="modal-contenido">
+      <p>Todos los días de 19:30 a 00:00</p>
+      <button onclick="cerrarVentana('horario')">Cerrar</button>
+    </div>
+  </div>
+
+  <div id="modal-ubicacion" class="modal oculto">
+    <div class="modal-contenido">
+      <p>Roque Sáenz Peña 220</p>
+      <button onclick="cerrarVentana('ubicacion')">Cerrar</button>
+    </div>
+  </div>
+
+  <script>
+    function irInicio() {
+      window.location.href = 'index.html';
+    }
+
+    function mostrarVentana(tipo) {
+      document.getElementById('modal-' + tipo).classList.remove('oculto');
+    }
+
+    function cerrarVentana(tipo) {
+      document.getElementById('modal-' + tipo).classList.add('oculto');
+    }
+  </script>
+
+  <footer class="footer">
+  <div class="footer-content">
+    <div class="footer-text">
+      <p>Este sitio está creado por: <strong>GudiWeb</strong></p>
+      <p>Teléfono: 3533439355</p>
+      <p>Email: matiasgo728@gmail.com</p>
+    </div>
+    <div class="footer-logo">
+      <img src="imagenes/logo gudi.png" alt="Logo GudiWeb">
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

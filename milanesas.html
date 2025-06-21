@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Milanesas</title>
+  <link rel="stylesheet" href="estilos.css">
+</head>
+<body>
+  <header class="navbar">
+    <img src="imagenes/logo.jpg" alt="Logo" class="logo" onclick="window.location.href='index.html'">
+  </header>
+
+  <main class="seccion-productos">
+    <h2>Milanesas</h2>
+    <div class="producto">
+      <img src="imagenes/milanesa napolitana.avif" alt="Milanesa Napolitana">
+      <h3>Milanesa Napolitana</h3>
+      <p>$10000</p>
+      <button onclick="toggleIngredientes(this)">Ingredientes</button>
+      <p class="ingredientes oculto">Carne, salsa, queso, aceituna y oregano "sale con papas"</p>
+      <input type="number" min="1" value="1">
+      <button onclick="agregarAlCarrito('Milanesa Napolitana', 10000, this)">Agregar al carrito</button>
+    </div>
+     <div class="producto">
+      <img src="imagenes/milanesa a caballo.webp" alt="Milanesa a caballo">
+      <h3>Milanesa a caballo</h3>
+      <p>$9000</p>
+      <button onclick="toggleIngredientes(this)">Ingredientes</button>
+      <p class="ingredientes oculto">Carne, huevo frito "sale con papas"</p>
+      <input type="number" min="1" value="1">
+      <button onclick="agregarAlCarrito('Milanesa a caballo', 9000, this)">Agregar al carrito</button>
+    </div>
+    <div class="producto">
+      <img src="imagenes/milanesa con queso.jpg" alt="Milanesa con queso">
+      <h3>Milanesa con queso</h3>
+      <p>$9000</p>
+      <button onclick="toggleIngredientes(this)">Ingredientes</button>
+      <p class="ingredientes oculto">Carne y queso "sale con papas"</p>
+      <input type="number" min="1" value="1">
+      <button onclick="agregarAlCarrito('Milanesa con queso', 9000, this)">Agregar al carrito</button>
+    </div>
+     <div class="producto">
+      <img src="imagenes/milanesa al plato.jpg" alt="Milanesa al plato">
+      <h3>Milanesa al plato</h3>
+      <p>$8500</p>
+      <button onclick="toggleIngredientes(this)">Ingredientes</button>
+      <p class="ingredientes oculto">Milanesa de Carne "sale con papas"</p>
+      <input type="number" min="1" value="1">
+      <button onclick="agregarAlCarrito('Milanesa al plato', 8500, this)">Agregar al carrito</button>
+    </div>
+    <div class="producto">
+      <img src="imagenes/Milanesa con cheddar.webp" alt="Milanesa con cheddar">
+      <h3>Milanesa con cheddar</h3>
+      <p>$10000</p>
+      <button onclick="toggleIngredientes(this)">Ingredientes</button>
+      <p class="ingredientes oculto">Carne, queso cheddar, panceta y cebolla verdeo "sale con papas"</p>
+      <input type="number" min="1" value="1">
+      <button onclick="agregarAlCarrito('Milanesa con cheddar', 10000, this)">Agregar al carrito</button>
+    </div>
+
+    <!-- Botón que se moverá dinámicamente -->
+    <button id="verCarritoBtn" class="ver-carrito" onclick="window.location.href='carrito.html'" style="display: none;">Ver pedido</button>
+    
+    </main>
+
+   <script>
+    function toggleIngredientes(btn) {
+      const parrafo = btn.nextElementSibling;
+      parrafo.classList.toggle('oculto');
+    }
+
+    function agregarAlCarrito(nombre, precio, btn) {
+      const cantidad = parseInt(btn.previousElementSibling.value);
+      if (isNaN(cantidad) || cantidad <= 0) return;
+
+      const carrito = JSON.parse(localStorage.getItem('carrito') || '[]');
+      const existente = carrito.find(p => p.nombre === nombre);
+
+      if (existente) {
+        existente.cantidad += cantidad;
+      } else {
+        carrito.push({ nombre, precio, cantidad });
+      }
+
+      localStorage.setItem('carrito', JSON.stringify(carrito));
+
+      // Mostrar y mover el botón "Ver pedido" justo después del producto actual
+      const verBtn = document.getElementById('verCarritoBtn');
+      verBtn.style.display = 'block';
+
+      const productoDiv = btn.closest('.producto');
+      productoDiv.parentNode.insertBefore(verBtn, productoDiv.nextSibling);
+    }
+  </script>
+
+  <footer class="footer">
+  <div class="footer-content">
+    <div class="footer-text">
+      <p>Este sitio está creado por: <strong>GudiWeb</strong></p>
+      <p>Teléfono: 3533439355</p>
+      <p>Email: matiasgo728@gmail.com</p>
+    </div>
+    <div class="footer-logo">
+      <img src="imagenes/logo gudi.png" alt="Logo GudiWeb">
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

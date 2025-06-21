@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Carrito</title>
+  <link rel="stylesheet" href="estilos.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    .oculto { display: none; }
+    .formulario-extra { margin-top: 10px; }
+    label { display: block; margin-top: 10px; }
+    input[type="text"] {
+      width: 100%;
+      padding: 8px;
+      margin-top: 4px;
+    }
+    
+  </style>
+</head>
+<body>
+  <header class="navbar">
+    <img src="imagenes/logo.jpg" alt="Logo" class="logo" onclick="window.location.href='index.html'">
+  </header>
+
+  <main class="carrito">
+    <h2>Tu pedido</h2>
+    <div id="lista-carrito"></div>
+    <h3 id="total"></h3>
+
+    <form id="formulario-pedido">
+      <label for="nombre">Nombre y Apellido</label>
+      <input type="text" id="nombre" required>
+
+      <div class="opciones">
+        <label><input type="radio" name="entrega" value="Retiro en el local" checked> Lo retiro en el local</label>
+        <label><input type="radio" name="entrega" value="Delivery"> Quiero delivery</label>
+      </div>
+
+      <div id="campo-direccion" class="formulario-extra oculto">
+        <label for="direccion">Dirección de entrega</label>
+        <input type="text" id="direccion" placeholder="Ej: Calle 123, Barrio">
+      </div>
+
+      <div id="campo-referencia" class="formulario-extra oculto">
+        <label for="referencia">Referencia (opcional)</label>
+        <input type="text" id="referencia" placeholder="Ej: casa color verde, portón negro">
+      </div>
+
+      <div id="campo-hora" class="formulario-extra">
+        <label for="hora">Hora del pedido (formato 24hs)</label>
+        <input type="text" id="hora" placeholder="Ej: 19:30" pattern="^([01]?[0-9]|2[0-3]):[0-5][0-9]$" required>
+      </div>
+
+      <div class="opciones">
+        <label><input type="radio" name="pago" value="Efectivo" checked> Pago en efectivo</label>
+        <label><input type="radio" name="pago" value="Transferencia"> Transferencia</label>
+      </div>
+
+      <button type="button" onclick="enviarPedido()">Pedir por WhatsApp</button>
+    </form>
+  </main>
+
+  <script>
+    const lista = document.getElementById('lista-carrito');
+    const total = document.getElementById('total');
+    const campoDireccion = document.getElementById('campo-direccion');
+    const campoReferencia = document.getElementById('campo-referencia');
+    const campoHora = document.getElementById('campo-hora');
+    let carrito = JSON.parse(localStorage.getItem('carrito') || '[]');
+
+    document.querySelectorAll('input[name="entrega"]').forEach(radio => {
+      radio.addEventListener('change', actualizarFormularioEntrega);
+    });
+
+    function actualizarFormularioEntrega() {
+      const entregaSeleccionada = document.querySelector('input[name="entrega"]:checked').value;
+      if (entregaSeleccionada === 'Delivery') {
+        campoDireccion.classList.remove('oculto');
+        campoReferencia.classList.remove('oculto');
+        campoHora.classList.remove('oculto');
+      } else {
+        campoDireccion.classList.add('oculto');
+        campoReferencia.classList.add('oculto');
+        campoHora.classList.remove('oculto');
+      }
+      renderizarCarrito();
+    }
+
+    function renderizarCarrito() {
+      let totalPrecio = 0;
+      const entrega = document.querySelector('input[name="entrega"]:checked').value;
+
+      let html = carrito.map((p, i) => {
+        const subtotal = p.precio * p.cantidad;
+        totalPrecio += subtotal;
+        return `<p>${p.nombre} x ${p.cantidad} = ${subtotal} <button onclick="eliminarProducto(${i})">Eliminar</button></p>`;
+      }).join('');
+
+      if (entrega === 'Delivery') {
+        totalPrecio += 1000;
+        html += `<p>Delivery = 1000</p>`;
+      }
+
+      lista.innerHTML = html;
+      total.textContent = `Total: ${totalPrecio}`;
+    }
+
+    function eliminarProducto(index) {
+      carrito.splice(index, 1);
+      localStorage.setItem('carrito', JSON.stringify(carrito));
+      renderizarCarrito();
+    }
+
+    function enviarPedido() {
+      const nombre = document.getElementById('nombre').value.trim();
+      const entrega = document.querySelector('input[name="entrega"]:checked').value;
+      const pago = document.querySelector('input[name="pago"]:checked').value;
+      const hora = document.getElementById('hora').value.trim();
+      const direccion = document.getElementById('direccion').value.trim();
+      const referencia = document.getElementById('referencia').value.trim();
+      const horaValida = /^([01]?[0-9]|2[0-3]):[0-5][0-9]$/.test(hora);
+
+      if (!nombre || !hora || !horaValida || (entrega === 'Delivery' && !direccion)) {
+        alert("Complete el formulario correctamente.");
+        return;
+      }
+
+      let totalPrecio = 0;
+      let mensaje = `*Pedido nuevo*\n\n*Productos:*\n`;
+      carrito.forEach(p => {
+        const subtotal = p.precio * p.cantidad;
+        totalPrecio += subtotal;
+        mensaje += `${p.nombre} x ${p.cantidad}\n`;
+      });
+
+      if (entrega === 'Delivery') {
+        totalPrecio += 1000;
+        mensaje += `Delivery: 1000\n`;
+      }
+
+      mensaje += `\n*Total:* ${totalPrecio}\n`;
+      mensaje += `*Nombre:* ${nombre}\n`;
+      mensaje += `*Hora:* ${hora}\n`;
+
+      if (entrega === 'Delivery') {
+        mensaje += `*Dirección:* ${direccion}\n`;
+        if (referencia) {
+          mensaje += `*Referencia:* ${referencia}\n`;
+        }
+        mensaje += `*Entrega:* Delivery\n`;
+      } else {
+        mensaje += `*Entrega:* Retiro en el local\n`;
+      }
+
+      mensaje += `*Pago:* ${pago}`;
+
+      const url = `https://wa.me/3533498100?text=${encodeURIComponent(mensaje)}`;
+      window.open(url, '_blank');
+    }
+
+    actualizarFormularioEntrega();
+    renderizarCarrito();
+  </script>
+
+  <footer class="footer">
+    <div class="footer-content">
+      <div class="footer-text">
+        <p>Este sitio está creado por: <strong>GudiWeb</strong></p>
+        <p>Teléfono: 3533439355</p>
+        <p>Email: matiasgo728@gmail.com</p>
+      </div>
+      <div class="footer-logo">
+        <img src="imagenes/logo gudi.png" alt="Logo GudiWeb">
+      </div>
+    </div>
+  </footer>
+</body>
+</html>

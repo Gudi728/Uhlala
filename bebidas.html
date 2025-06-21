@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bebidas</title>
+  <link rel="stylesheet" href="estilos.css">
+</head>
+<body>
+  <header class="navbar">
+    <img src="imagenes/logo.jpg" alt="Logo" class="logo" onclick="window.location.href='index.html'">
+  </header>
+
+  <main class="seccion-productos">
+    <h2>Bebidas</h2>
+    <div class="producto">
+      <img src="imagenes/Pepsi-15L.webp" alt="Pepsi 1.5lt">
+      <h3>Pepsi 1.5lt</h3>
+      <p>$3000</p>
+      <input type="number" min="1" value="1">
+      <button onclick="agregarAlCarrito('Pepsi 1.5lt', 3000, this)">Agregar al carrito</button>
+    </div>
+    <div class="producto">
+      <img src="imagenes/seven up 1.5.png" alt="Seven Up 1.5lt">
+      <h3>Seven Up 1.5lt</h3>
+      <p>$3000</p>
+      <input type="number" min="1" value="1">
+      <button onclick="agregarAlCarrito('Seven Up 1.5lt', 3000, this)">Agregar al carrito</button>
+    </div>
+    <div class="producto">
+      <img src="imagenes/Levite 1.5.jpg"Agua saborizada levite 1.5lt">
+      <h3>Agua saborizada levite 1.5lt</h3>
+      <p>$3000</p>
+      <input type="number" min="1" value="1">
+      <button onclick="agregarAlCarrito('Agua saborizada levite 1.5lt', 3000, this)">Agregar al carrito</button>
+    </div>
+     <div class="producto">
+      <img src="imagenes/paso de los toros  500ml.webp" alt="Paso de los toros 500ml">
+      <h3>Paso de los toros 500ml</h3>
+      <p>$1500</p>
+      <input type="number" min="1" value="1">
+      <button onclick="agregarAlCarrito('Paso de los toros 500ml', 1500, this)">Agregar al carrito</button>
+    </div>
+     <div class="producto">
+      <img src="imagenes/seven up 500.jpg" alt="Seven Up 500ml">
+      <h3>Seven Up 500ml</h3>
+      <p>$1500</p>
+      <input type="number" min="1" value="1">
+      <button onclick="agregarAlCarrito('Seven Up 500ml', 1500, this)">Agregar al carrito</button>
+    </div>
+    <div class="producto">
+      <img src="imagenes/agua mineral 500.webp" alt="Agua mineral 500ml">
+      <h3>Agua mineral 500ml</h3>
+      <p>$1500</p>
+      <input type="number" min="1" value="1">
+      <button onclick="agregarAlCarrito('Agua mineral 500ml', 1500, this)">Agregar al carrito</button>
+    </div>
+    <div class="producto">
+      <img src="imagenes/Lata pepsi.jpg" alt="Lata Pepsi">
+      <h3>Lata Pepsi</h3>
+      <p>$1500</p>
+      <input type="number" min="1" value="1">
+      <button onclick="agregarAlCarrito('Lata Pepsi', 1500, this)">Agregar al carrito</button>
+    </div>
+     <div class="producto">
+      <img src="imagenes/lata seven up.png" alt="Lata Seven Up">
+      <h3>Lata Seven Up</h3>
+      <p>$1500</p>
+      <input type="number" min="1" value="1">
+      <button onclick="agregarAlCarrito('Lata Seven Up', 1500, this)">Agregar al carrito</button>
+    </div>
+
+
+
+    <!-- Botón que se moverá dinámicamente -->
+    <button id="verCarritoBtn" class="ver-carrito" onclick="window.location.href='carrito.html'" style="display: none;">Ver pedido</button>
+  </main>
+
+   <script>
+    function toggleIngredientes(btn) {
+      const parrafo = btn.nextElementSibling;
+      parrafo.classList.toggle('oculto');
+    }
+
+    function agregarAlCarrito(nombre, precio, btn) {
+      const cantidad = parseInt(btn.previousElementSibling.value);
+      if (isNaN(cantidad) || cantidad <= 0) return;
+
+      const carrito = JSON.parse(localStorage.getItem('carrito') || '[]');
+      const existente = carrito.find(p => p.nombre === nombre);
+
+      if (existente) {
+        existente.cantidad += cantidad;
+      } else {
+        carrito.push({ nombre, precio, cantidad });
+      }
+
+      localStorage.setItem('carrito', JSON.stringify(carrito));
+
+      // Mostrar y mover el botón "Ver pedido" justo después del producto actual
+      const verBtn = document.getElementById('verCarritoBtn');
+      verBtn.style.display = 'block';
+
+      const productoDiv = btn.closest('.producto');
+      productoDiv.parentNode.insertBefore(verBtn, productoDiv.nextSibling);
+    }
+  </script>
+
+  <footer class="footer">
+  <div class="footer-content">
+    <div class="footer-text">
+      <p>Este sitio está creado por: <strong>GudiWeb</strong></p>
+      <p>Teléfono: 3533439355</p>
+      <p>Email: matiasgo728@gmail.com</p>
+    </div>
+    <div class="footer-logo">
+      <img src="imagenes/logo gudi.png" alt="Logo GudiWeb">
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
